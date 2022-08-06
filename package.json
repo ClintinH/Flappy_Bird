@@ -1,0 +1,23 @@
+{
+  "name": "flappy_bird",
+  "version": "1.0.0",
+  "description": "Flappy bird",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist --no-scope-hoist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClintinH/Flappy_Bird.git"
+  },
+  "author": "Clintin Herholdt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClintinH/Flappy_Bird/issues"
+  },
+  "homepage": "https://github.com/ClintinH/Flappy_Bird#readme",
+  "dependencies": {
+    "parcel": "^2.7.0"
+  }
+}

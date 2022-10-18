@@ -1,10 +1,18 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
   overflow: hidden;
+}
+
+.board {
+  background-color: black;
+  padding: 0;
+  margin: 0;
 }
 
 .title {
@@ -19,7 +27,7 @@ body {
 }
 
 .subtitle {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .hide {
@@ -28,14 +36,16 @@ body {
 
 .bird {
   --bird-top: -1000;
-  --bird-size: 60px;
   position: absolute;
-  background-color: hsl(50, 75%, 50%);
-  width: var(--bird-size);
-  height: var(--bird-size);
-  left: var(--bird-size);
+  width: 90px;
+  height: 71px;
+  left: 71px;
   top: calc(var(--bird-top) * 1px);
-  border-radius: 50%;
+}
+
+.bird img {
+  height: 100%;
+  width: 100%;
 }
 
 .pipe {
@@ -49,7 +59,7 @@ body {
 .pipe > .segment {
   position: absolute;
   width: 100%;
-  background-color: hsl(100, 75%, 50%);
+  background-color: hsl(31, 100%, 25%);
 }
 
 .pipe > .top {
@@ -60,4 +70,15 @@ body {
 .pipe > .bottom {
   bottom: 0;
   top: calc(100vh - (var(--hole-top) * 1px) + calc(var(--hole-height) * 1px));
+}
+
+.environment {
+  position: relative;
+}
+
+.background {
+  --left: 0;
+  position: absolute;
+  width: 100%;
+  left: calc(var(--left) * 1%);
 }

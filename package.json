@@ -23,6 +23,6 @@
   },
   "staticFiles": {
     "staticPath": "img",
-    "staticOutPath": "folder"
+    "staticOutPath": "img"
   }
 }

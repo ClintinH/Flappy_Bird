@@ -26,8 +26,6 @@ let pipes = [];
 const title = document.querySelector("[data-title]");
 const bird = document.querySelector("[data-bird]");
 
-document.addEventListener("keypress", startGame, { once: true });
-
 function gameLoop(curTime) {
   // skipping first loop
   if (lastTime == null) {
@@ -51,7 +49,7 @@ function gameLoop(curTime) {
 function startGame() {
   title.classList.add("hide");
 
-  imgSrc("./img/bird-01.png");
+  imgSrc("img/bird-01.png");
   setupBird();
   setupPipes();
   setupGround();
@@ -73,11 +71,11 @@ function updateBird(delta) {
   if (timeSinceLastJump < jumpDuration) {
     // setting the bird to jump up
     setBirdPosition(getBirdPosition() - birdSpeed * delta);
-    updateSrc("./img/bird-03.png");
+    updateSrc("img/bird-03.png");
   } else {
     // setting the bird to constantly move down
     setBirdPosition(getBirdPosition() + birdSpeed * delta);
-    updateSrc("./img/bird-05.png");
+    updateSrc("img/bird-05.png");
   }
 
   timeSinceLastJump += delta;
@@ -191,13 +189,12 @@ function isCollision(rect1, rect2) {
 function imgSrc(src) {
   if (bird.querySelector("img") !== null) return;
   let img = document.createElement("img");
-  img.src = src;
+  replaceImg(src);
   bird.appendChild(img);
 }
 
 function updateSrc(src) {
-  let img = bird.querySelector("img");
-  img.src = src;
+  replaceImg(src);
 }
 
 function gameStop() {
@@ -205,4 +202,54 @@ function gameStop() {
     title.classList.remove("hide");
     document.addEventListener("keypress", startGame, { once: true });
   }, 500);
+}
+
+let images = ["bird-01.png", "bird-03.png", "bird-05.png"];
+
+///loader
+let bar_percentage = document.getElementById("bar_percentage");
+let percentage_number = document.getElementById("percentage_number");
+let loaderOverlay = document.getElementById("loaderOverlay");
+
+let img_queue = new createjs.LoadQueue();
+let completedProgress = 0;
+img_queue.addEventListener("progress", (event) => {
+  let progress_percentage = Math.floor(event.progress * 100);
+  bar_percentage.style.width = progress_percentage + "%";
+  percentage_number.innerHTML = progress_percentage + "%";
+  console.log("progress " + Math.floor(event.progress * 100));
+  if (progress_percentage === 100) preloaderComplete();
+});
+
+images.forEach((element) => {
+  img_queue.loadFile(`img/${element}`);
+});
+
+function preloaderComplete() {
+  //start game loop
+
+  document.addEventListener("keypress", startGame, { once: true });
+  // loaderOverlay.remove();
+  setTimeout(() => {
+    loaderOverlay.remove();
+  }, 2000);
+}
+
+let loadedImages = new Map();
+
+img_queue.addEventListener("fileload", (e) => {
+  addImg(e.item.id, e.loader._rawResult);
+});
+
+export function replaceImg(id) {
+  const bird = document.querySelector("[data-birdImg]");
+  let urlCreator = window.URL || window.webkitURL;
+  let imageUrl = urlCreator.createObjectURL(loadedImages.get(id));
+  bird.src = imageUrl;
+}
+
+function addImg(id, loadedImg) {
+  if (!loadedImages.has(id)) {
+    loadedImages.set(id, loadedImg);
+  }
 }

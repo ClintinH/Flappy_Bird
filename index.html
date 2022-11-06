@@ -5,10 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
     <script src="game.js" type="module"></script>
     <title>Document</title>
   </head>
   <body>
+    <!-- Show custom progress bar to show UI of percentage progress-->
+    <div id="loaderOverlay">
+      <div id="progress_bar">
+        <div id="bar_percentage"></div>
+        <!-- Pecentage progress in numbers -->
+        <div id="percentage_number"></div>
+      </div>
+    </div>
     <div class="board"></div>
     <div class="evironment" data-environment>
       <img src="img/background.svg" class="background" data-background />
@@ -18,7 +27,9 @@
         <small data-subtitle class="subtitle hide"></small>
       </h1>
       <!-- <img src = "img\bird-01.png" class = "bird"> -->
-      <div class="bird" data-bird></div>
+      <div class="bird" data-bird>
+        <img src="img/bird-01.png" data-birdImg />
+      </div>
     </div>
   </body>
 </html>
